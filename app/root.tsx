@@ -18,6 +18,10 @@ import {
   ReadyPage,
   ErrorComponent,
   AuthPage,
+  Layout,
+  Title,
+  Header,
+  Sider
 } from "@pankod/refine-mui";
 
 import routerProvider from "@pankod/refine-remix-router";
@@ -28,8 +32,9 @@ import { unstable_useEnhancedEffect as useEnhancedEffect } from "@mui/material";
 import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import ClientStyleContext from "~/contexts/ClientStyleContext";
 import { ColorModeContextProvider } from "~/contexts";
-import { Title, Sider, Layout, Header } from "~/components/layout";
+// import { Title, Sider, Layout, Header } from "~/components/layout";
 import { authProvider } from "~/authProvider";
+import Imprint from "./routes/imprint";
 
 const API_URL = "https://api.fake-rest.refine.dev";
 
@@ -102,7 +107,12 @@ export default function App() {
         <GlobalStyles styles={{ html: { WebkitFontSmoothing: "auto" } }} />
         <RefineSnackbarProvider>
           <Refine
-            routerProvider={routerProvider}
+            routerProvider={{...routerProvider, routes: [
+              {
+                path: '/imprint',
+                element: <Imprint />,
+              }
+            ]}}
             dataProvider={dataProvider(API_URL)}
             notificationProvider={notificationProvider}
             ReadyPage={ReadyPage}
@@ -116,6 +126,13 @@ export default function App() {
                 create: MuiInferencer,
                 canDelete: true,
               },
+              {
+                name: 'imprint',
+                options: {
+                  label: 'Imprint',
+                },
+                list: () => null,
+              }
             ]}
             Title={Title}
             Sider={Sider}

@@ -5,7 +5,7 @@ import { checkAuthentication } from "@pankod/refine-remix-router";
 import { authProvider } from "~/authProvider";
 
 export const loader: LoaderFunction = async ({ request }) => {
-  await checkAuthentication(authProvider, request);
+  // await checkAuthentication(authProvider, request);
 
   return json({});
 };
